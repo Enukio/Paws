@@ -155,7 +155,7 @@ cd Paws
 ```shell
 cp .env-example .env
 ```
-Edit your api_id and api_hash
+Edit your API_ID and API_HASH
 ```shell
 nano .env
 ```
