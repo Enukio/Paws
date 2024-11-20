@@ -81,8 +81,8 @@ def get_main_js_format(base_url, output_file="./paws"):
 # Main block for execution
 if __name__ == "__main__":
     # Simulate the JavaScript file fetching process
-    BASE_URL = "https://app.paws.community"  # Replace with your target URL
-    OUTPUT_FILE = "./paws"  # Save all filenames to this file
+    BASE_URL = Fore.CYAN + "https://app.paws.community" + Style.RESET_ALL  # Replace with your target URL
+    OUTPUT_FILE = Fore.GREEN + "./paws" + Style.RESET_ALL  # Save all filenames to this file
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if not filenames:
         logger.info("No filenames were saved.")
