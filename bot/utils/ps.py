@@ -1,5 +1,6 @@
 import cloudscraper
 import re
+import os
 from bot.utils import logger
 from bot.config import settings
 
