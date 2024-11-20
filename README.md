@@ -74,29 +74,55 @@ run.sh
 # Windows manual installation
 ```shell
 python -m venv venv
+```
+```shell
 venv\Scripts\activate
+```
+```shell
 pip install -r requirements.txt
+```
+```shell
 copy .env-example .env
+```
+```shell
+notepad .env
+```
 # Here you must specify your API_ID and API_HASH, the rest is taken by default
+```shell
 python main.py
 ```
+
 You can also use arguments for quick start, for example:
 ```shell
 ~/Paws >>> python main.py --action (1/2)
 # Or
 ~/Paws >>> python main.py -a (1/2)
 
-# 1 - Start clicker
-# 2 - Creates a session
+# 1 - Run script (Session)
+# 2 - Run script (Query)
+# 3 - Update Index
+# 4 - Create a session
+# 5 - Create a TON Wallet
 ```
 
 # Linux manual installation
 ```shell
 python3 -m venv venv
+```
+```shell
 source venv/bin/activate
+```
+```shell
 pip3 install -r requirements.txt
+```
+```shell
 cp .env-example .env
-nano .env  # Here you must specify your API_ID and API_HASH, the rest is taken by default
+```
+```shell
+nano .env 
+```
+# Here you must specify your API_ID and API_HASH, the rest is taken by default
+```shell
 python3 main.py
 ```
 
@@ -106,8 +132,11 @@ You can also use arguments for quick start, for example:
 # Or
 ~/Paws >>> python3 main.py -a (1/2)
 
-# 1 - Run script
-# 2 - Creates a session
+# 1 - Run script (Session)
+# 2 - Run script (Query)
+# 3 - Update Index
+# 4 - Create a session
+# 5 - Create a TON Wallet
 ```
 
 # Termux manual installation
@@ -126,6 +155,9 @@ You can also use arguments for quick start, for example:
 # Or
 ~/Paws > python main.py -a (1/2)
 
-# 1 - Run script
-# 2 - Creates a session
+# 1 - Run script (Session)
+# 2 - Run script (Query)
+# 3 - Update Index
+# 4 - Create a session
+# 5 - Create a TON Wallet
 ```
