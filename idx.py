@@ -28,7 +28,7 @@ class ColorFormatter(logging.Formatter):
         return super().format(record)
 
 # Configure logger
-formatter = ColorFormatter('%(botname)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S', name="Paws")
+formatter = ColorFormatter('%(botname)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S')
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 logger = logging.getLogger('[{self.name}]')
