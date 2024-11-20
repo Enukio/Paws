@@ -20,7 +20,7 @@ class ColorFormatter(logging.Formatter):
 
         # Add color to the log level
         record.levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
-        record.botname = f"{Fore.RED}[Paws]{Style.RESET_ALL}"
+        record.paws = f"{Fore.RED}[Paws]{Style.RESET_ALL}"
         record.msg = f"{Style.BRIGHT}{record.msg}{Style.RESET_ALL}"
         return super().format(record)
 
