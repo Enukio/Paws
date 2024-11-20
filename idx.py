@@ -85,4 +85,4 @@ if __name__ == "__main__":
     OUTPUT_FILE = "./paws"  # Save all filenames to this file
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if not filenames:
-        logger.info("No filenames were saved.")
+        logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
