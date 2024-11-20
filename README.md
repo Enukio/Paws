@@ -25,7 +25,6 @@
 | **DELAY_EACH_ACCOUNT**      | Random delay bewteen accounts (default: [20, 30])                                                             |
 | **ADVANCED_ANTI_DETECTION** | Add more protection for your account (default: True)                                                          |
 | **USE_PROXY_FROM_FILE**     | Whether to use a proxy from the bot/config/proxies.txt file (True / False)                                    |
-|-----------------------------|:-------------------------------------------------------------------------------------------------------------:|
 
 
 ## Quick Start 📚
