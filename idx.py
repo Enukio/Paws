@@ -12,6 +12,7 @@ class ColorFormatter(logging.Formatter):
     def __init__(self, fmt=None, datefmt=None, name="Paws"):
         super().__init__(fmt, datefmt)
         self.name = name  # Set custom name
+
     def format(self, record):
         # Define color styles for log levels
         level_color = {
@@ -35,8 +36,15 @@ logger = logging.getLogger('[{self.name}]')
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
+# Variable definitions with added colors
+BASE_URL = "https://app.paws.community"  # Replace with your target URL
+OUTPUT_FILE = "./paws"  # Output file
+
+# Print variables with color
+print(f"{Fore.GREEN}BASE_URL: {Style.BRIGHT}{BASE_URL}{Style.RESET_ALL}")
+print(f"{Fore.BLUE}OUTPUT_FILE: {Style.BRIGHT}{OUTPUT_FILE}{Style.RESET_ALL}")
+
 def storage(filenames, output_file):
-    
     try:
         # Write filenames as a single comma-separated line
         with open(output_file, 'w') as f:
@@ -46,7 +54,6 @@ def storage(filenames, output_file):
         logger.error(f"Failed to save filenames to {output_file}: {e}")
 
 def get_main_js_format(base_url, output_file="./paws"):
-    
     try:
         logger.info(f"Fetching base URL: {base_url}")
         response = requests.get(base_url, timeout=10)
@@ -81,8 +88,6 @@ def get_main_js_format(base_url, output_file="./paws"):
 # Main block for execution
 if __name__ == "__main__":
     # Simulate the JavaScript file fetching process
-    BASE_URL = "https://app.paws.community"  # Replace with your target URL
-    OUTPUT_FILE = "./paws"  # Save all filenames to this file
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if not filenames:
         logger.info("No filenames were saved.")
