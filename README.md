@@ -118,11 +118,10 @@ pip3 install -r requirements.txt
 ```shell
 cp .env-example .env
 ```
+# Here you must specify your API_ID and API_HASH, the rest is taken by default
 ```shell
 nano .env 
 ```
-```
-# Here you must specify your API_ID and API_HASH, the rest is taken by default
 ```shell
 python3 main.py
 ```
