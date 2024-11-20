@@ -37,12 +37,8 @@ logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 # Variable definitions with added colors
-BASE_URL = "https://app.paws.community"  # Replace with your target URL
-OUTPUT_FILE = "./paws"  # Output file
-
-# Print variables with color
-print(f"{Fore.GREEN}BASE_URL: {Style.BRIGHT}{BASE_URL}{Style.RESET_ALL}")
-print(f"{Fore.BLUE}OUTPUT_FILE: {Style.BRIGHT}{OUTPUT_FILE}{Style.RESET_ALL}")
+BASE_URL = f"{Fore.GREEN}https://app.paws.community{Style.RESET_ALL}"  # Replace with your target URL
+OUTPUT_FILE = f"{Fore.BLUE}./paws{Style.RESET_ALL}"  # Output file
 
 def storage(filenames, output_file):
     try:
