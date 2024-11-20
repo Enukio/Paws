@@ -9,6 +9,9 @@ init(autoreset=True)
 
 # Custom logging formatter with colors
 class ColorFormatter(logging.Formatter):
+    def __init__(self, fmt=None, datefmt=None, name="Paws"):
+        super().__init__(fmt, datefmt)
+        self.name = name  # Set custom name
     def format(self, record):
         # Define color styles for log levels
         level_color = {
@@ -20,15 +23,15 @@ class ColorFormatter(logging.Formatter):
 
         # Add color to the log level
         record.levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
-        record.xxx = f"{Fore.RED}[xxx]{Style.RESET_ALL}"
+        record.botname = f"{Fore.RED}[{self.name}]{Style.RESET_ALL}"
         record.msg = f"{Style.BRIGHT}{record.msg}{Style.RESET_ALL}"
         return super().format(record)
 
 # Configure logger
-formatter = ColorFormatter('%(xxx)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S')
+formatter = ColorFormatter('%(botname)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S', name="Paws")
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
-logger = logging.getLogger('[xxx]')
+logger = logging.getLogger('[{self.name}]')
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
