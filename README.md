@@ -84,10 +84,10 @@ pip install -r requirements.txt
 ```shell
 copy .env-example .env
 ```
+Here you must specify your API_ID and API_HASH, the rest is taken by default
 ```shell
 notepad .env
 ```
-# Here you must specify your API_ID and API_HASH, the rest is taken by default
 ```shell
 python main.py
 ```
@@ -118,7 +118,7 @@ pip3 install -r requirements.txt
 ```shell
 cp .env-example .env
 ```
-# Here you must specify your API_ID and API_HASH, the rest is taken by default
+Here you must specify your API_ID and API_HASH, the rest is taken by default
 ```shell
 nano .env 
 ```
