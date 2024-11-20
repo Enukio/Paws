@@ -80,9 +80,6 @@ def check_base_url():
             if index[0] and index[1]:
                 return True
 
-            logger.warning("<yellow>One or both JS files have changes</yellow>")
-            return False
-
         # Print main_js_formats
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
