@@ -72,6 +72,25 @@ Linux:
 run.sh
 ```
 
+# Windows manual installation
+```shell
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+copy .env-example .env
+# Here you must specify your API_ID and API_HASH, the rest is taken by default
+python main.py
+```
+You can also use arguments for quick start, for example:
+```shell
+~/Paws >>> python main.py --action (1/2)
+# Or
+~/Paws >>> python main.py -a (1/2)
+
+# 1 - Start clicker
+# 2 - Creates a session
+```
+
 # Linux manual installation
 ```shell
 python3 -m venv venv
@@ -88,26 +107,7 @@ You can also use arguments for quick start, for example:
 # Or
 ~/Paws >>> python3 main.py -a (1/2)
 
-# 1 - Run clicker
-# 2 - Creates a session
-```
-
-# Windows manual installation
-```shell
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-copy .env-example .env
-# Here you must specify your API_ID and API_HASH, the rest is taken by default
-python main.py
-```
-You can also use arguments for quick start, for example:
-```shell
-~/Paws >>> python3 main.py --action (1/2)
-# Or
-~/Paws >>> python3 main.py -a (1/2)
-
-# 1 - Run clicker
+# 1 - Run script
 # 2 - Creates a session
 ```
 
@@ -127,6 +127,6 @@ You can also use arguments for quick start, for example:
 # Or
 ~/Paws > python main.py -a (1/2)
 
-# 1 - Run clicker
-# 2 - Creates a session 
+# 1 - Run script
+# 2 - Creates a session
 ```
