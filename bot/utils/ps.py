@@ -45,27 +45,39 @@ def check_base_url():
     base_url = "https://app.paws.community/"
     main_js_formats = get_main_js_format(base_url)
 
-    if main_js_formats:
-        if settings.ADVANCED_ANTI_DETECTION:
-            r = session.get(
-                "https://raw.githubusercontent.com/vanhbakaa/nothing/refs/heads/main/paws")
-            js_ver = r.text.strip().split(",")
+if main_js_formats:
+    if settings.ADVANCED_ANTI_DETECTION:
+        two_up_path = os.path.join(os.path.dirname(__file__), "../../paws")
+        two_up_path = os.path.abspath(two_up_path)
+
+        try:
+            with open(two_up_path, 'r') as file:
+                js_ver = file.read().strip().split(",")
+                
             index = {
                 0: False,
                 1: False
             }
-            # print(main_js_formats)
+
             for js in main_js_formats:
                 if js_ver[0] in js:
                     index[0] = True
-                    logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
-                if js_ver[1] in js:
+                    logger.success(f"<green>No change in JS file: {js_ver[0]}</green>")
+                if len(js_ver) > 1 and js_ver[1] in js:
                     index[1] = True
-                    logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
+                    logger.success(f"<green>No change in JS file: {js_ver[1]}</green>")
 
             if index[0] and index[1]:
                 return True
             return False
+
+        except FileNotFoundError:
+            logger.warning(f"File not found at: {two_up_path}")
+            return False
+        except Exception as e:
+            logger.warning(f"Error reading the file: {e}")
+            return False
+
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
