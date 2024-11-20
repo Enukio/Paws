@@ -41,7 +41,7 @@ def storage(filenames, output_file):
         # Write filenames as a single comma-separated line
         with open(output_file, 'w') as f:
             f.write(','.join(filenames))
-        logger.info(f"Saved {len(filenames)} filenames to {Fore.CYAN}{output_file}{Style.RESET_ALL} in specific order.")
+        logger.info(f"Saved {len(filenames)} filenames to {Fore.GREEN}{output_file}{Style.RESET_ALL} in specific order.")
     except Exception as e:
         logger.error(f"Failed to save filenames to {Fore.RED}{output_file}{Style.RESET_ALL}: {Fore.YELLOW}{e}{Style.RESET_ALL}")
 
