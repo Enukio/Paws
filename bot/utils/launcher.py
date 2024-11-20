@@ -48,6 +48,12 @@ def generate_wallets(count):
 
 
 start_text = """
+███████╗███╗░░██╗██╗░░░██╗██╗░░██╗██╗░█████╗░
+██╔════╝████╗░██║██║░░░██║██║░██╔╝██║██╔══██╗
+█████╗░░██╔██╗██║██║░░░██║█████═╝░██║██║░░██║
+██╔══╝░░██║╚████║██║░░░██║██╔═██╗░██║██║░░██║
+███████╗██║░╚███║╚██████╔╝██║░╚██╗██║╚█████╔╝
+╚══════╝╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚═╝░╚════╝░  
 
 Select an action:
 
@@ -55,6 +61,7 @@ Select an action:
     2. Create session
     3. Run clicker (Query)
     4. Create TON wallet
+    5. Update Index
 """
 
 global tg_clients
@@ -222,8 +229,8 @@ async def process() -> None:
 
             if not action.isdigit():
                 logger.warning("Action must be number")
-            elif action not in ["1", "2", "3", "4"]:
-                logger.warning("Action must be 1, 2, 3 or 4")
+            elif action not in ["1", "2", "3", "4", "5"]:
+                logger.warning("Action must be 1, 2, 3, 4 or 5")
             else:
                 action = int(action)
                 break
@@ -276,7 +283,13 @@ async def process() -> None:
             except:
                 print("Invaild number, please re-enter...")
 
+    elif action == 4:
+        # Path to idx.py two levels above the current directory
+        two_up_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../idx.py"))
 
+    if os.path.exists(two_up_path):
+        subprocess.run([sys.executable, two_up_path])  # Execute idx.py
+        
 async def run_tasks_query(query_ids: list[str]):
     if settings.AUTO_CONNECT_WALLET:
 
