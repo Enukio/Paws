@@ -52,23 +52,27 @@ if main_js_formats:
 
         try:
             with open(two_up_path, 'r') as file:
-            js_ver = r.text.strip().split(",")
-            index = {
-                0: False,
-                1: False
-            }
-            # print(main_js_formats)
-            for js in main_js_formats:
-                if js_ver[0] in js:
-                    index[0] = True
-                    logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
-                if js_ver[1] in js:
-                    index[1] = True
-                    logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
-
-            if index[0] and index[1]:
-                return True
+                js_ver = file.read().strip().split(",")
+        except FileNotFoundError:
+            logger.error(f"<red>File not found: {two_up_path}</red>")
             return False
+        except Exception as e:
+            logger.error(f"<red>Error reading file: {str(e)}</red>")
+            return False
+
+        index = {0: False, 1: False}
+
+        for js in main_js_formats:
+            if js_ver[0] in js:
+                index[0] = True
+                logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
+            if js_ver[1] in js:
+                index[1] = True
+                logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
+
+        if index[0] and index[1]:
+            return True
+        return False
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
