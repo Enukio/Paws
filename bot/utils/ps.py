@@ -45,35 +45,41 @@ def check_base_url():
     base_url = "https://app.paws.community/"
     main_js_formats = get_main_js_format(base_url)
 
-if main_js_formats:
-    if settings.ADVANCED_ANTI_DETECTION:
-        two_up_path = os.path.join(os.path.dirname(__file__), "../../paws")
-        two_up_path = os.path.abspath(two_up_path)
+    if main_js_formats:
+        if settings.ADVANCED_ANTI_DETECTION:
+            two_up_path = os.path.join(os.path.dirname(__file__), "../../paws")
+            two_up_path = os.path.abspath(two_up_path)
 
-        try:
-            with open(two_up_path, 'r') as file:
-                js_ver = file.read().strip().split(",")
-        except FileNotFoundError:
-            logger.error(f"<red>File not found: {two_up_path}</red>")
+            try:
+                with open(two_up_path, 'r') as file:
+                    js_ver = file.read().strip().split(",")
+                    if len(js_ver) < 2:
+                        logger.error("<red>File content is invalid: less than 2 values</red>")
+                        return False
+            except FileNotFoundError:
+                logger.error(f"<red>File not found: {two_up_path}</red>")
+                return False
+            except Exception as e:
+                logger.error(f"<red>Error reading file: {str(e)}</red>")
+                return False
+
+            if not main_js_formats:
+                logger.error("<red>main_js_formats is empty</red>")
+                return False
+
+            index = {0: False, 1: False}
+
+            for js in main_js_formats:
+                if js_ver[0] in js:
+                    index[0] = True
+                    logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
+                if js_ver[1] in js:
+                    index[1] = True
+                    logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
+
+            if index[0] and index[1]:
+                return True
             return False
-        except Exception as e:
-            logger.error(f"<red>Error reading file: {str(e)}</red>")
-            return False
-
-        index = {0: False, 1: False}
-
-        for js in main_js_formats:
-            if js_ver[0] in js:
-                index[0] = True
-                logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
-            if js_ver[1] in js:
-                index[1] = True
-                logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
-
-        if index[0] and index[1]:
-            return True
-        return False
-        
         # Print main_js_formats
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
