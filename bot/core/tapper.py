@@ -371,16 +371,19 @@ class Tapper:
                             wallet_text = wallet
                         all_info = f"""
                             ===<cyan>{self.session_name}</cyan>===
-Referrals Count:          <cyan>{user['referralData']['referralsCount']}</cyan>
-Wallet Connected:         <cyan>{wallet_text}</cyan>
-Total Paws:               <cyan>{user['gameData']['balance']}</cyan>
+───────────────────────────────────────────────
+🎯 Referrals Count:   <cyan>{user['referralData']['referralsCount']}</cyan>
+🔗 Wallet Connected:  <cyan>{wallet_text}</cyan>
+🐾 Total Paws:        <cyan>{user['gameData']['balance']}</cyan>
+───────────────────────────────────────────────
 
-<cyan>Allocation Data:</cyan>
-  - Hamster:              <cyan>{user['allocationData']['hamster']['converted']}</cyan> paws
-  - Telegram:             <cyan>{user['allocationData']['telegram']['converted']}</cyan> paws
-  - Paws:                 <cyan>{user['allocationData']['paws']['converted']}</cyan> paws
-  - Dogs:                 <cyan>{user['allocationData']['dogs']['converted']}</cyan> paws
-  - Notcoin:              <cyan>{user['allocationData']['notcoin']['converted']}</cyan> paws
+📊 Allocation Data:
+🐹 Hamster:        <cyan>{user['allocationData']['hamster']['converted']}</cyan> paws
+📱 Telegram:       <cyan>{user['allocationData']['telegram']['converted']}</cyan> paws
+🐾 Paws:           <cyan>{user['allocationData']['paws']['converted']}</cyan> paws
+🐶 Dogs:           <cyan>{user['allocationData']['dogs']['converted']}</cyan> paws
+🪙 Notcoin:        <cyan>{user['allocationData']['notcoin']['converted']}</cyan> paws
+───────────────────────────────────────────────
                             """
                         logger.info(all_info)
 
