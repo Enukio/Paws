@@ -58,14 +58,14 @@ if main_js_formats:
                 0: False,
                 1: False
             }
-
+            # print(main_js_formats)
             for js in main_js_formats:
                 if js_ver[0] in js:
                     index[0] = True
-                    logger.success(f"<green>No change in JS file: {js_ver[0]}</green>")
-                if len(js_ver) > 1 and js_ver[1] in js:
+                    logger.success(f"<green>No change in js file: {js_ver[0]}</green>")
+                if js_ver[1] in js:
                     index[1] = True
-                    logger.success(f"<green>No change in JS file: {js_ver[1]}</green>")
+                    logger.success(f"<green>No change in js file: {js_ver[1]}</green>")
 
             if index[0] and index[1]:
                 return True
@@ -77,7 +77,6 @@ if main_js_formats:
         except Exception as e:
             logger.warning(f"Error reading the file: {e}")
             return False
-    else:
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
