@@ -9,9 +9,7 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 def validate_settings():
-    """
-    Validate critical settings and log warnings if they are not set.
-    """
+
     if not settings.API_ID or not settings.API_HASH:
         logger.warning("API_ID and API_HASH are not properly set. Please check your .env file.")
 
