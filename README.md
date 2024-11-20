@@ -153,6 +153,13 @@ git clone https://github.com/Enukio/Paws.git
 cd Paws
 ```
 ```shell
+cp .env-example .env
+```
+Edit your api_id and api_hash
+```shell
+nano .env
+```
+```shell
 pip install -r requirements.txt
 ```
 ```shell
