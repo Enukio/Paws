@@ -59,11 +59,11 @@ start_text = """
 
 Select an action:
 
-    1. Start clicker (Session)
-    2. Create a new session
-    3. Execute clicker (Query)
-    4. Create a TON Wallet
-    5. Update Index
+    1. Run script (Session)
+    2. Run script (Query)
+    3. Update Index
+    4. Creates a session
+    5. Create a TON Wallet
 """
 
 global tg_clients
@@ -238,7 +238,7 @@ async def process() -> None:
                 action = int(action)
                 break
 
-    if action == 2:
+    if action == 4:
         await register_sessions()
     elif action == 1:
         if ans is None:
@@ -257,7 +257,7 @@ async def process() -> None:
             tg_clients = await get_tg_clients()
             wallets = get_wallets()
             await run_tapper1(tg_clients=tg_clients, wallets=wallets)
-    elif action == 3:
+    elif action == 2:
         ans = None
         while True:
             ans = input("> Do you want to run the bot with multi-thread? (y/n) ")
@@ -276,7 +276,14 @@ async def process() -> None:
                 query_ids = [line.strip() for line in f.readlines()]
             wallets = get_wallets()
             await run_query_tapper1(query_ids, wallets=wallets)
-    elif action == 4:
+
+    elif action == 3:
+        same_dir_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "idx.py"))
+
+        if os.path.exists(same_dir_path):
+            subprocess.run([sys.executable, same_dir_path])
+    
+    elif action == 5:
         while True:
             count = input("Input number of wallet you want to create: ")
             try:
@@ -286,13 +293,6 @@ async def process() -> None:
             except:
                 print("Invaild number, please re-enter...")
 
-    elif action == 5:
-        # Path to idx.py in the same directory as the current file
-        same_dir_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "idx.py"))
-
-        if os.path.exists(same_dir_path):
-            subprocess.run([sys.executable, same_dir_path])  # Execute idx.py
-        
 async def run_tasks_query(query_ids: list[str]):
     if settings.AUTO_CONNECT_WALLET:
 
