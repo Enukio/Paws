@@ -1,5 +1,6 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from colorama import Fore, Style
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_ignore_empty=True)
@@ -16,9 +17,9 @@ class Settings(BaseSettings):
     USE_PROXY_FROM_FILE: bool = False
 
 if not os.path.exists(".env"):
-    print("Warning: .env file not found. Default values may be used.")
+    print(f"{Fore.YELLOW}Warning: .env file not found. Default values may be used.{Style.RESET_ALL}")
 
 settings = Settings()
 
 if not settings.API_ID or not settings.API_HASH:
-    print("Warning: API_ID or API_HASH is missing or empty. Please check your .env file.")
+    print(f"{Fore.YELLOW}Warning: API_ID or API_HASH is missing or empty. Please check your .env file.{Style.RESET_ALL}")
