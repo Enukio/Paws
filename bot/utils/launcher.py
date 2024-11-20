@@ -62,7 +62,7 @@ Select an action:
     1. Run script (Session)
     2. Run script (Query)
     3. Update Index
-    4. Creates a session
+    4. Create a session
     5. Create a TON Wallet
 """
 
