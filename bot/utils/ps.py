@@ -70,13 +70,6 @@ if main_js_formats:
             if index[0] and index[1]:
                 return True
             return False
-
-        except FileNotFoundError:
-            logger.warning(f"File not found at: {two_up_path}")
-            return False
-        except Exception as e:
-            logger.warning(f"Error reading the file: {e}")
-            return False
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
