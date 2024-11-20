@@ -83,11 +83,6 @@ if __name__ == "__main__":
     # Simulate the JavaScript file fetching process
     BASE_URL = "https://app.paws.community"  # Replace with your target URL
     OUTPUT_FILE = "./paws"  # Save all filenames to this file
-    
-    # Print variables with color
-print(f"{Fore.GREEN}BASE_URL: {Style.BRIGHT}{BASE_URL}{Style.RESET_ALL}")
-print(f"{Fore.BLUE}OUTPUT_FILE: {Style.BRIGHT}{OUTPUT_FILE}{Style.RESET_ALL}")
-
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if not filenames:
         logger.info("No filenames were saved.")
