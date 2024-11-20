@@ -52,8 +52,7 @@ if main_js_formats:
 
         try:
             with open(two_up_path, 'r') as file:
-                js_ver = file.read().strip().split(",")
-                
+            js_ver = r.text.strip().split(",")
             index = {
                 0: False,
                 1: False
@@ -70,7 +69,6 @@ if main_js_formats:
             if index[0] and index[1]:
                 return True
             return False
-            
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
