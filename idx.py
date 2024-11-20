@@ -32,7 +32,7 @@ logger = logging.getLogger('[Paws]')
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-def save_filename_to_paws(filenames, output_file):
+def storage(filenames, output_file):
     
     try:
         # Write filenames as a single comma-separated line
