@@ -66,7 +66,7 @@ def get_main_js_format(base_url, output_file="./paws"):
             filenames = [os.path.basename(match) for match in matches]
 
             # Save the filenames to the output file in the specified order
-            save_storage(filenames, output_file)
+            storage(filenames, output_file)
             return filenames
         else:
             logger.warning("No matching JavaScript files found.")
