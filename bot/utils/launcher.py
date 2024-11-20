@@ -59,10 +59,10 @@ start_text = """
 
 Select an action:
 
-    1. Run clicker (Session)
-    2. Create session
-    3. Run clicker (Query)
-    4. Create TON wallet
+    1. Start clicker (Session)
+    2. Create a new session
+    3. Execute clicker (Query)
+    4. Create a TON Wallet
     5. Update Index
 """
 
