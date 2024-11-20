@@ -70,6 +70,7 @@ if main_js_formats:
             if index[0] and index[1]:
                 return True
             return False
+            
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
