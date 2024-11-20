@@ -8,6 +8,7 @@ from itertools import cycle
 from urllib.parse import unquote
 
 from aiofile import AIOFile
+from colorama import Fore, Style
 from pyrogram import Client
 from better_proxy import Proxy
 
@@ -163,7 +164,8 @@ async def get_tg_clients() -> list[Client]:
         raise FileNotFoundError("Not found session files")
 
     if not settings.API_ID or not settings.API_HASH:
-        raise ValueError("API_ID and API_HASH not found in the .env file.")
+        print(f"{Fore.YELLOW}Warning: API_ID and API_HASH are not properly set. Telegram clients cannot be initialized.{Style.RESET_ALL}")
+        return []
 
     tg_clients = [
         Client(
