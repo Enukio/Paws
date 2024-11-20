@@ -68,8 +68,6 @@ class Tapper:
                 username=proxy.login,
                 password=proxy.password
             )
-        else:
-            proxy_dict = None
 
         self.tg_client.proxy = proxy_dict
         actual = random.choices([self.my_ref, ref_param], weights=[30, 70], k=1)
@@ -109,9 +107,6 @@ class Tapper:
                 await self.tg_client.disconnect()
 
             return tg_web_data
-
-        except InvalidSession as error:
-            raise error
 
         except Exception as error:
             logger.error(f"<light-yellow>{self.session_name}</light-yellow> | Unknown error during Authorization: "
@@ -186,9 +181,6 @@ class Tapper:
         except Exception as error:
             logger.error(f"{self.session_name} | Proxy: {proxy} | Error: {error}")
 
-    async def login(self, http_client: cloudscraper.CloudScraper, retry=3):
-        if retry == 0:
-            return None
         try:
             payload = {
                 "data": self.auth_token,
@@ -261,9 +253,6 @@ class Tapper:
             await asyncio.sleep(random.randint(1, 3))
             return await self.claim_task(task, http_client, attempt - 1)
 
-    async def proceed_task(self, task, http_client: cloudscraper.CloudScraper, maxattemp, attempt=10):
-        if attempt == 0:
-            return False
         try:
             payload = {
                 "questId": task['_id']
@@ -312,10 +301,6 @@ class Tapper:
             logger.error(f"{self.session_name} | Unknown error while trying to connect wallet: {e}")
             return False
 
-    async def run(self, proxy: str | None, ua: str) -> None:
-        access_token_created_time = 0
-        proxy_conn = ProxyConnector().from_url(proxy) if proxy else None
-
         headers["User-Agent"] = ua
         chrome_ver = fetch_version(headers['User-Agent'])
         headers['Sec-Ch-Ua'] = f'"Chromium";v="{chrome_ver}", "Android WebView";v="{chrome_ver}", "Not.A/Brand";v="99"'
@@ -339,12 +324,6 @@ class Tapper:
             try:
                 if check_base_url() is False:
                     can_run = False
-                    if settings.ADVANCED_ANTI_DETECTION:
-                        logger.warning(
-                            "<yellow>Detected index js file change. </yellow>")
-                    else:
-                        logger.warning(
-                            "<yellow>Detected api change! Stopped the bot for safety. </yellow>")
 
                 if can_run:
                     if time() - access_token_created_time >= token_live_time:
@@ -440,28 +419,6 @@ Allocation Data:
                                             await self.proceed_task(task, session, 5, 5)
                                         await asyncio.sleep(random.randint(5, 10))
 
-                    logger.info(f"----<cyan>Completed {self.session_name}</cyan>----")
-                    await http_client.close()
-                    session.close()
-                    return
-
-            except InvalidSession as error:
-                raise error
-
-            except Exception as error:
-                # traceback.print_exc()
-                logger.error(f"{self.session_name} | Unknown error: {error}")
-                await asyncio.sleep(delay=randint(60, 120))
-
-
-def get_():
-    abasdowiad = base64.b64decode("c2M5YkdhSHo=")
-    waijdioajdioajwdwioajdoiajwodjawoidjaoiwjfoiajfoiajfojaowfjaowjfoajfojawofjoawjfioajwfoiajwfoiajwfadawoiaaiwjaijgaiowjfijawtext = abasdowiad.decode(
-        "utf-8")
-
-    return waijdioajdioajwdwioajdoiajwodjawoidjaoiwjfoiajfoiajfojaowfjaowjfoajfojawofjoawjfioajwfoiajwfoiajwfadawoiaaiwjaijgaiowjfijawtext
-
-
 async def run_tapper(tg_client: Client, proxy: str | None, wallet: str | None, wallet_memonic: str | None, ua):
     try:
         sleep_ = randint(1, 15)
@@ -471,12 +428,6 @@ async def run_tapper(tg_client: Client, proxy: str | None, wallet: str | None, w
             proxy=proxy, ua=ua)
     except InvalidSession:
         logger.error(f"{tg_client.name} | Invalid Session")
-
-
-async def get_user_agent(session_name):
-    async with AIOFile('user_agents.json', 'r') as file:
-        content = await file.read()
-        user_agents = json.loads(content)
 
     if session_name not in list(user_agents.keys()):
         logger.info(f"{session_name} | Doesn't have user agent, Creating...")
