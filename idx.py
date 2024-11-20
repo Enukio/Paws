@@ -12,14 +12,15 @@ class ColorFormatter(logging.Formatter):
     def __init__(self, fmt=None, datefmt=None, name="Paws"):
         super().__init__(fmt, datefmt)
         self.name = name  # Set custom name
+        
     def format(self, record):
         # Define color styles for log levels
         level_color = {
-            'INFO': Fore.CYAN,          # INFO: Cyan
-            'WARNING': Fore.MAGENTA,    # WARNING: Magenta
-            'ERROR': Fore.YELLOW,       # ERROR: Yellow
+            'INFO': Fore.CYAN,                   # INFO: Cyan
+            'WARNING': Fore.MAGENTA,             # WARNING: Magenta
+            'ERROR': Fore.YELLOW,                # ERROR: Yellow
             'CRITICAL': Fore.RED + Style.BRIGHT  # CRITICAL: Bright Red
-        }.get(record.levelname, Fore.WHITE)  # Default to white
+        }.get(record.levelname, Fore.WHITE)      # Default to white
 
         # Add color to the log level
         record.levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
@@ -28,17 +29,18 @@ class ColorFormatter(logging.Formatter):
         return super().format(record)
 
 # Configure logger
-formatter = ColorFormatter('%(botname)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S')
+name = "Paws"
+formatter = ColorFormatter('%(botname)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S', name)
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
-logger = logging.getLogger('[{self.name}]')
+logger = logging.getLogger(name)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 def storage(filenames, output_file):
     
     try:
-        # Write filenames as a single comma-separated line
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)  # Ensure the directory exists
         with open(output_file, 'w') as f:
             f.write(','.join(filenames))
         logger.info(f"Saved {len(filenames)} filenames to {Fore.GREEN}{output_file}{Style.RESET_ALL} in specific order.")
@@ -79,10 +81,13 @@ def get_main_js_format(base_url, output_file="./paws"):
         return None
 
 # Main block for execution
-if __name__ == "__main__":
-    # Simulate the JavaScript file fetching process
-    BASE_URL = "https://app.paws.community"  # Replace with your target URL
-    OUTPUT_FILE = "./paws"  # Save all filenames to this file
-    filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
-    if not filenames:
-        logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
+BASE_URL = "https://app.paws.community"  # Replace with your target URL
+OUTPUT_FILE = "./paws"  # Save all filenames to this file
+
+# Let's run the function and capture filenames
+filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
+
+if not filenames:
+    logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
+else:
+    logger.info(f"Filenames processed: {Fore.GREEN}{filenames}{Style.RESET_ALL}")
