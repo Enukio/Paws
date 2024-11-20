@@ -141,22 +141,22 @@ You can also use arguments for quick start, for example:
 
 # Termux manual installation
 ```shell
-> pkg update && pkg upgrade -y
+pkg update && pkg upgrade -y
 ```
 ```shell
-> pkg install python rust git -y
+pkg install python rust git -y
 ```
 ```shell
-> git clone https://github.com/Enukio/Paws.git
+git clone https://github.com/Enukio/Paws.git
 ```
 ```shell
-> cd Memelabs
+cd Paws
 ```
 ```shell
-> pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 ```shell
-> python main.py
+python main.py
 ```
 
 You can also use arguments for quick start, for example:
