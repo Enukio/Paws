@@ -53,11 +53,18 @@ if main_js_formats:
         try:
             with open(two_up_path, 'r') as file:
                 js_ver = file.read().strip().split(",")
+                if len(js_ver) < 2:
+                    logger.error("<red>File content is invalid: less than 2 values</red>")
+                    return False
         except FileNotFoundError:
             logger.error(f"<red>File not found: {two_up_path}</red>")
             return False
         except Exception as e:
             logger.error(f"<red>Error reading file: {str(e)}</red>")
+            return False
+
+        if not main_js_formats:
+            logger.error("<red>main_js_formats is empty</red>")
             return False
 
         index = {0: False, 1: False}
@@ -72,7 +79,10 @@ if main_js_formats:
 
         if index[0] and index[1]:
             return True
+
+        logger.warning("<yellow>One or both JS files have changes</yellow>")
         return False
+
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
