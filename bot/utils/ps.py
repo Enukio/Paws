@@ -77,7 +77,7 @@ if main_js_formats:
         except Exception as e:
             logger.warning(f"Error reading the file: {e}")
             return False
-
+    else:
         # print(main_js_formats)
         for format in main_js_formats:
             logger.info(f"Trying format: {format}")
