@@ -1,14 +1,15 @@
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_ignore_empty=True)
 
-    API_ID: int
-    API_HASH: str
-
+    API_ID: int = 0
+    API_HASH: str = ""
 
     REF_LINK: str = ""
+    AUTO_TASK: bool = True
+    AUTO_CONNECT_WALLET: bool = False
 
     AUTO_TASK: bool = True
     AUTO_CONNECT_WALLET: bool = False
@@ -22,3 +23,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
+if not os.path.exists(".env"):
+    print("Warning: .env file not found. Default values will be used.")
+
+settings = Settings()
