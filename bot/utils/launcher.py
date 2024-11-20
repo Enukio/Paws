@@ -164,7 +164,7 @@ async def get_tg_clients() -> list[Client]:
         raise FileNotFoundError("Not found session files")
 
     if not settings.API_ID or not settings.API_HASH:
-        print(f"{Fore.YELLOW}Warning: API_ID and API_HASH are not properly set. Telegram clients cannot be initialized.{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Warning: API_ID and API_HASH are not properly set. Please check your .env file.{Style.RESET_ALL}")
         return []
 
     tg_clients = [
