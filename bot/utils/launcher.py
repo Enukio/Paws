@@ -284,7 +284,7 @@ async def process() -> None:
             except:
                 print("Invaild number, please re-enter...")
 
-    elif action == 4:
+    elif action == 5:
         # Path to idx.py two levels above the current directory
         two_up_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../idx.py"))
 
