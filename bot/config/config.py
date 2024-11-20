@@ -20,6 +20,3 @@ if not os.path.exists(".env"):
     print(f"{Fore.YELLOW}Warning: .env file not found. Default values may be used.{Style.RESET_ALL}")
 
 settings = Settings()
-
-if not settings.API_ID or not settings.API_HASH:
-    print(f"{Fore.YELLOW}Warning: API_ID or API_HASH is missing or empty. Please check your .env file.{Style.RESET_ALL}")
