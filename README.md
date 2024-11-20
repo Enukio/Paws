@@ -1,3 +1,5 @@
+# 👨‍🌾 AUTO FARM FOR Paws 👩‍🌾
+
 > [!WARNING]
 > I make every effort to avoid bot detection, but using bots is prohibited in all airdrops. I cannot guarantee that you won't be flagged as a bot. Use this software at your own risk. I am not liable for any consequences that may arise from its use.
 
