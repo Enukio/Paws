@@ -20,16 +20,15 @@ class ColorFormatter(logging.Formatter):
 
         # Add color to the log level
         record.levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
-        botname = "NewBotName"
-        record.botname = f"{Fore.RED}[{botname}]{Style.RESET_ALL}"
+        record.xxx = f"{Fore.RED}[xxx]{Style.RESET_ALL}"
         record.msg = f"{Style.BRIGHT}{record.msg}{Style.RESET_ALL}"
         return super().format(record)
 
 # Configure logger
-formatter = ColorFormatter('%(paws)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S')
+formatter = ColorFormatter('%(xxx)s | %(asctime)s | %(levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S')
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
-logger = logging.getLogger('[Paws]')
+logger = logging.getLogger('[xxx]')
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
