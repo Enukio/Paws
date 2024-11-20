@@ -1,24 +1,24 @@
-import asyncio
-import logging
-from contextlib import suppress
+import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from bot.utils.launcher import process
-from bot.config.config import settings
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_ignore_empty=True)
 
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger(__name__)
+    API_ID: int = 0
+    API_HASH: str = ""
 
-def validate_settings():
-    
-    if not settings.API_ID or not settings.API_HASH:
-        logger.warning("API_ID and API_HASH are not properly set. Please check your .env file.")
-    else:
-        logger.info("API_ID and API_HASH are properly configured.")
+    REF_LINK: str = ""
+    AUTO_TASK: bool = True
+    AUTO_CONNECT_WALLET: bool = False
+    DELAY_EACH_ACCOUNT: list[int] = [20, 30]
+    IGNORE_TASKS: list[str] = ["boost"]
+    ADVANCED_ANTI_DETECTION: bool = True
+    USE_PROXY_FROM_FILE: bool = False
 
-async def main():
-    validate_settings()
-    await process()
+if not os.path.exists(".env"):
+    print("Warning: .env file not found. Default values may be used.")
 
-if __name__ == '__main__':
-    with suppress(KeyboardInterrupt):
-        asyncio.run(main())
+settings = Settings()
+
+if not settings.API_ID or not settings.API_HASH:
+    print("Error: API_ID or API_HASH is missing or empty. Please check your .env file.")
