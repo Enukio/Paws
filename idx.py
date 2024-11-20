@@ -12,7 +12,6 @@ class ColorFormatter(logging.Formatter):
     def __init__(self, fmt=None, datefmt=None, name="Paws"):
         super().__init__(fmt, datefmt)
         self.name = name  # Set custom name
-
     def format(self, record):
         # Define color styles for log levels
         level_color = {
@@ -36,23 +35,20 @@ logger = logging.getLogger('[{self.name}]')
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-# Variable definitions
-BASE_URL = "https://app.paws.community"  # Replace with your target URL
-OUTPUT_FILE = "./paws"  # Output file
-
-# Function to save filenames to a file
 def storage(filenames, output_file):
+    
     try:
+        # Write filenames as a single comma-separated line
         with open(output_file, 'w') as f:
             f.write(','.join(filenames))
-        logger.info(f"Saved {len(filenames)} filenames to {output_file} in specific order.")
+        logger.info(f"Saved {len(filenames)} filenames to {Fore.CYAN}{output_file}{Style.RESET_ALL} in specific order.")
     except Exception as e:
-        logger.error(f"Failed to save filenames to {output_file}: {e}")
+        logger.error(f"Failed to save filenames to {Fore.RED}{output_file}{Style.RESET_ALL}: {Fore.YELLOW}{e}{Style.RESET_ALL}")
 
-# Function to fetch and process JavaScript file names from the base URL
 def get_main_js_format(base_url, output_file="./paws"):
+    
     try:
-        print(f"{Fore.CYAN}Fetching base URL: {Style.BRIGHT}{base_url}{Style.RESET_ALL}")
+        logger.info(f"Fetching base URL: {Fore.GREEN}{base_url}{Style.RESET_ALL}")
         response = requests.get(base_url, timeout=10)
         response.raise_for_status()
         content = response.text
@@ -68,24 +64,25 @@ def get_main_js_format(base_url, output_file="./paws"):
             matches += re.findall(pattern, content)
 
         if matches:
-            print(f"{Fore.GREEN}Found {len(matches)} JavaScript files matching the patterns.{Style.RESET_ALL}")
+            logger.info(f"Found {len(matches)} JavaScript files matching the patterns.")
             matches = sorted(set(matches), key=lambda x: (not x.startswith('_app'), x))
             filenames = [os.path.basename(match) for match in matches]
 
             # Save the filenames to the output file in the specified order
             storage(filenames, output_file)
-            print(f"{Fore.YELLOW}Filenames saved to: {Style.BRIGHT}{output_file}{Style.RESET_ALL}")
             return filenames
         else:
-            print(f"{Fore.MAGENTA}No matching JavaScript files found.{Style.RESET_ALL}")
+            logger.warning("No matching JavaScript files found.")
             return None
     except requests.RequestException as e:
-        print(f"{Fore.RED}Error fetching the base URL: {e}{Style.RESET_ALL}")
+        logger.error(f"Error fetching the base URL: {e}")
         return None
 
 # Main block for execution
 if __name__ == "__main__":
     # Simulate the JavaScript file fetching process
+    BASE_URL = "https://app.paws.community"  # Replace with your target URL
+    OUTPUT_FILE = "./paws"  # Save all filenames to this file
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if not filenames:
-        print(f"{Fore.RED}No filenames were saved.{Style.RESET_ALL}")
+        logger.info("No filenames were saved.")
