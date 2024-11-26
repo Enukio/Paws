@@ -92,3 +92,10 @@ if filenames is None:
     logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
 else:
     logger.info(f"Filenames processed: {Fore.GREEN}{filenames}{Style.RESET_ALL}")
+
+    # Return to main.py
+    print("\n🔄 Returning to Menu in 2 seconds...\n")
+    if os.path.exists("main.py"):
+        os.system(f'"{sys.executable}" main.py')
+    else:
+        logger.error("main.py not found. Exiting.")
