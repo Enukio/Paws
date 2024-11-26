@@ -6,13 +6,15 @@ import requests
 import logging
 from colorama import init, Fore, Style
 
+# Initialize colorama
 init(autoreset=True)
 
+# Custom color formatter for logger
 class ColorFormatter(logging.Formatter):
     def __init__(self, fmt=None, datefmt=None, name="Paws"):
         super().__init__(fmt, datefmt)
         self.name = name
-        
+
     def format(self, record):
         level_color = {
             'INFO': Fore.CYAN,
@@ -35,6 +37,7 @@ logger = logging.getLogger("Paws")
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
+# Function to save filenames to a file
 def storage(filenames, output_file):
     if not isinstance(filenames, list) or not all(isinstance(item, str) for item in filenames):
         logger.error("Invalid input: filenames must be a list of strings.")
@@ -50,6 +53,7 @@ def storage(filenames, output_file):
     except Exception as e:
         logger.error(f"Failed to save filenames: {e}")
 
+# Function to fetch JavaScript file names from a URL
 def get_main_js_format(base_url, output_file="./paws"):
     if not base_url.startswith(('http://', 'https://')):
         logger.error(f"Invalid URL: {base_url}")
@@ -85,19 +89,20 @@ def get_main_js_format(base_url, output_file="./paws"):
     return None
 
 # Main block for execution
-BASE_URL = "https://app.paws.community"  # Replace with your target URL
-OUTPUT_FILE = "./paws"  # Save all filenames to this file
+if __name__ == "__main__":
+    BASE_URL = "https://app.paws.community"  # Replace with your target URL
+    OUTPUT_FILE = "./paws"  # Save all filenames to this file
 
-# Let's run the function and capture filenames
-filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
-if filenames is None:
-    logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
-else:
-    logger.info(f"Filenames processed: {Fore.GREEN}{filenames}{Style.RESET_ALL}")
-
-    # Return to main.py
-    print("\n🔄 Returning to Menu in 2 seconds...\n")
-    if os.path.exists("main.py"):
-        os.system(f'"{sys.executable}" main.py')
+    # Let's run the function and capture filenames
+    filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
+    if filenames is None:
+        logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
     else:
-        logger.error("main.py not found. Exiting.")
+        logger.info(f"Filenames processed: {Fore.GREEN}{filenames}{Style.RESET_ALL}")
+
+        # Return to main.py
+        print("\n🔄 Returning to Menu in 2 seconds...\n")
+        if os.path.exists("main.py"):
+            os.system(f'"{sys.executable}" main.py')
+        else:
+            logger.error("main.py not found. Exiting.")
