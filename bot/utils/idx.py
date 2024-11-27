@@ -13,7 +13,7 @@ OUTPUT_FILE = "./paws"  # Save all filenames to this file
 logger.remove()
 logger.add(
     sink=sys.stdout,
-    format="<r>[Not Pixel]</r> | <white>{time:YYYY-MM-DD HH:mm:ss}</white> | "
+    format="<r>[Paws]</r> | <white>{time:YYYY-MM-DD HH:mm:ss}</white> | "
            "<level>{level}</level> | <cyan>{line}</cyan> | {message}",
     colorize=True
 )
