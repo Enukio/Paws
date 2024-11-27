@@ -3,39 +3,21 @@ import sys
 import platform
 import re
 import requests
-import logging
-from colorama import init, Fore, Style
+from loguru import logger
 
-# Initialize colorama
-init(autoreset=True)
-
-# Custom color formatter for logger
-class ColorFormatter(logging.Formatter):
-    def __init__(self, fmt=None, datefmt=None, name="Paws"):
-        super().__init__(fmt, datefmt)
-        self.name = name
-
-    def format(self, record):
-        level_color = {
-            'INFO': Fore.CYAN,
-            'WARNING': Fore.MAGENTA,
-            'ERROR': Fore.YELLOW,
-            'CRITICAL': Fore.RED + Style.BRIGHT
-        }.get(record.levelname, Fore.WHITE)
-        
-        record.colored_levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
-        record.botname = f"{Fore.RED}[{self.name}]{Style.RESET_ALL}"
-        record.msg = f"{Style.BRIGHT}{record.msg}{Style.RESET_ALL}"
-        return super().format(record)
+# Constants
+BASE_URL = "https://app.paws.community"  # Replace with your target URL
+OUTPUT_FILE = "./paws"  # Save all filenames to this file
 
 # Configure logger
-formatter = ColorFormatter('%(botname)s | %(asctime)s | %(colored_levelname)s | %(message)s', '%Y-%m-%d %H:%M:%S', "Paws")
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
-logger = logging.getLogger("Paws")
-logger.setLevel(logging.INFO)
-logger.addHandler(handler)
+logger.remove()
+logger.add(
+    sink=sys.stdout,
+    format="<r>[Not Pixel]</r> | <white>{time:YYYY-MM-DD HH:mm:ss}</white> | "
+           "<level>{level}</level> | <cyan>{line}</cyan> | {message}",
+    colorize=True
+)
+logger = logger.opt(colors=True)
 
 # Function to save filenames to a file
 def storage(filenames, output_file):
@@ -49,7 +31,7 @@ def storage(filenames, output_file):
             os.makedirs(dir_name, exist_ok=True)
         with open(output_file, 'w') as f:
             f.write(','.join(filenames))
-        logger.info(f"Saved {len(filenames)} filenames to {Fore.GREEN}{output_file}{Style.RESET_ALL}.")
+        logger.info(f"Saved {len(filenames)} filenames to <green>{output_file}</green>")
     except Exception as e:
         logger.error(f"Failed to save filenames: {e}")
 
@@ -60,7 +42,7 @@ def get_main_js_format(base_url, output_file="./paws"):
         return None
     
     try:
-        logger.info(f"Fetching URL: {Fore.GREEN}{base_url}{Style.RESET_ALL}")
+        logger.info(f"Fetching URL: <green>{base_url}</green>")
         response = requests.get(base_url, timeout=10)
         response.raise_for_status()
         content = response.text
@@ -88,17 +70,13 @@ def get_main_js_format(base_url, output_file="./paws"):
         logger.error(f"An unexpected error occurred: {e}")
     return None
 
-# Main block for execution
+# Main execution
 if __name__ == "__main__":
-    BASE_URL = "https://app.paws.community"  # Replace with your target URL
-    OUTPUT_FILE = "./paws"  # Save all filenames to this file
-
-    # Let's run the function and capture filenames
     filenames = get_main_js_format(BASE_URL, OUTPUT_FILE)
     if filenames is None:
-        logger.info(f"{Fore.YELLOW}No filenames were saved.{Style.RESET_ALL}")
+        logger.info("No filenames were saved.")
     else:
-        logger.info(f"Filenames processed: {Fore.GREEN}{filenames}{Style.RESET_ALL}")
+        logger.info(f"Filenames processed: <green>{filenames}</green>")
 
         # Return to main.py
         print("\n🔄 Returning to Menu in 2 seconds...\n")
